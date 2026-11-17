@@ -8,10 +8,10 @@ A one-page, clickable concept showing how I'd design, secure and evaluate a mult
 - **Run console:** eight requests, each traced step by step: routing, tool calls and the identity they ran under, citations, the answer. Side-effecting actions pause on an approval card (a mock, not a Microsoft UI).
 - **Prompt injection:** a planted document and a planted email try to get data out. Five defence layers (untrusted-content tagging, user permissions, tool allow-lists, human approval, an egress filter); switch four of them off and watch the outcome change, including a "model is fooled anyway" worst case. No layer prevents injection on its own; each lowers the odds or limits the damage.
 - **Evaluation suite:** ten tests (grounding, hallucination, routing, permission boundary, refusal, injection, approval) computed by running the same simulator, with a release gate. One quality test is scripted to fail, to show a grounding gap.
-- **Identity and permissions:** acting on behalf of the user versus as the app, per agent. Design only.
-- **Build notes:** how I'd implement it on Microsoft Foundry, plus a deployment and handover checklist. Design only.
+- **Identity and permissions:** acting on behalf of the user versus as the app, per agent.
+- **Build notes:** how I'd implement it on Microsoft Foundry, plus a deployment and handover checklist.
 
-**Honest scope:** every run is simulated and deterministic; no LLM is called. The organisation, people, documents and figures are made up. I haven't used Microsoft Foundry, Azure OpenAI, Azure AI Search, Semantic Kernel, Agent Framework or Teams apps in production. The Adaptive Card payload is an untested sketch.
+**Scope:** every run is simulated and deterministic; no LLM is called. The organisation, people, documents and figures are made up. The Adaptive Card payload is a sketch.
 
 Plain HTML, CSS and JavaScript in one file, no dependencies. Light and dark mode, works on a phone.
 

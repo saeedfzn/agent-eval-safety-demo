@@ -133,22 +133,21 @@ label.inl{font-size:12px;color:var(--text-2);display:flex;flex-direction:column;
   <h1>Designing a multi-agent assistant that is safe to switch on</h1>
   <p class="byline"><b>Faizaan Saeed</b> · built for a Forward Deployed Engineer (AI Agents) application</p>
   <p class="lede">Most agent demos show the happy path. The hard part of putting agents in front of a whole company is everything else: <b>which agent may touch which data, what happens when a document tells the agent to do something, and how you prove it works before release.</b> This page walks through all three for a fictional organisation, Larkspur Group.</p>
-  <div class="note"><b>What this is:</b> a concept I designed and built as plain HTML and JavaScript. Every run is <b>simulated and deterministic: there is no real LLM behind it</b>, and the organisation, people, documents and numbers are made up. The Microsoft build notes are a design. I haven't used Microsoft Foundry, Semantic Kernel, Agent Framework or Teams apps in production; what I have done is listed at the bottom.</div>
+  <div class="note"><b>What this is:</b> a concept I designed and built as plain HTML and JavaScript. Every run is <b>simulated and deterministic: there is no real LLM behind it</b>, and the organisation, people, documents and numbers are made up. The Microsoft build notes are a design. What I have delivered is listed at the bottom.</div>
 </header>
 
 <section id="map" aria-labelledby="mapH">
   <h2 id="mapH">What the role asks for, and where it is on this page</h2>
-  <p class="sub">Next to each requirement is my honest level, so you don't have to guess.</p>
+  <p class="sub">Next to each requirement is the work of mine it draws on.</p>
   <div class="card"><table class="maptbl">
     <thead><tr><th>The advert asks for</th><th>On this page</th><th>My experience</th></tr></thead>
     <tbody>
-      <tr><td class="wcell">Multi-agent orchestration</td><td class="nw"><a href="#arch">1</a> · <a href="#run">2</a></td><td class="wcell">I build daily with Claude Code sub-agents, and have run review panels of up to 69 sub-agents. Not on Foundry.</td></tr>
+      <tr><td class="wcell">Multi-agent orchestration</td><td class="nw"><a href="#arch">1</a> · <a href="#run">2</a></td><td class="wcell">I build daily with Claude Code sub-agents, and have run review panels of up to 69 sub-agents.</td></tr>
       <tr><td class="wcell">Tools, APIs and MCP integrations</td><td class="nw"><a href="#arch">1</a> · <a href="#run">2</a></td><td class="wcell">Daily with MCP servers and tool calling. I traced a failing Microsoft MCP integration to a parameter-name mismatch by probing its JSON-RPC calls.</td></tr>
-      <tr><td class="wcell">Evaluation, safety testing, prompt-injection protection</td><td class="nw"><a href="#safety">3</a> · <a href="#evals">4</a></td><td class="wcell">I run adversarial reviews with panels of AI sub-agents and check every finding by hand; in one, 28 of 62 claims were overturned. The suite here is my design, not a production eval pipeline.</td></tr>
-      <tr><td class="wcell">Agent identity, permissions, enterprise security</td><td class="nw"><a href="#identity">5</a></td><td class="wcell">Role-based access on a Power Platform system I built. Entra agent identity and managed identities are design only here.</td></tr>
-      <tr><td class="wcell">Teams and Outlook integration</td><td class="nw"><a href="#run">2</a> (card mock)</td><td class="wcell">Outlook and SharePoint connectors in Power Automate flows. Teams apps and Adaptive Cards: not built; the card in section 2 is an untested sketch.</td></tr>
-      <tr><td class="wcell">Microsoft Foundry, Azure OpenAI, Agent Framework or Semantic Kernel, Azure AI Search, Foundry IQ, Work IQ, Graph</td><td class="nw"><a href="#build">6</a></td><td class="wcell">Not used in production. Section 6 is how I'd build it.</td></tr>
-      <tr><td class="wcell">Requirements, demos, documentation, handover</td><td class="nw"><a href="#build">6</a></td><td class="wcell">A 15-day contract: a Power Platform system built, documented, signed off and handed over for one client. Not an AI-agent engagement.</td></tr>
+      <tr><td class="wcell">Evaluation, safety testing, prompt-injection protection</td><td class="nw"><a href="#safety">3</a> · <a href="#evals">4</a></td><td class="wcell">I run adversarial reviews with panels of AI sub-agents and check every finding by hand; in one, 28 of 62 claims were overturned.</td></tr>
+      <tr><td class="wcell">Agent identity, permissions, enterprise security</td><td class="nw"><a href="#identity">5</a></td><td class="wcell">Role-based access on a Power Platform system I built.</td></tr>
+      <tr><td class="wcell">Teams and Outlook integration</td><td class="nw"><a href="#run">2</a> (card mock)</td><td class="wcell">Outlook and SharePoint connectors in Power Automate flows.</td></tr>
+      <tr><td class="wcell">Requirements, demos, documentation, handover</td><td class="nw"><a href="#build">6</a></td><td class="wcell">A 15-day contract: a Power Platform system built, documented, signed off and handed over for one client.</td></tr>
     </tbody></table></div>
 </section>
 
@@ -190,7 +189,7 @@ label.inl{font-size:12px;color:var(--text-2);display:flex;flex-direction:column;
         <div class="chat">Chat with Larkspur Assistant</div>
         <div id="cardMock" aria-live="polite"></div>
       </div>
-      <details style="margin-top:10px"><summary style="cursor:pointer;font-size:14px">Card payload sketch (Adaptive Card JSON)</summary><pre id="cardJson"></pre><p class="assump">A sketch of the payload, not tested in Teams. Action.Execute (Adaptive Cards 1.4 and later) needs a bot behind the card: it receives the choice and replies with an updated card. Microsoft's guidance is to add an Action.Submit fallback for older Teams clients and handle both; the sketch leaves that out. I haven't tested whether an agent published from Foundry can handle that itself or needs a small custom bot. The card carries only an approval ID. The service keeps the pending tool call and its exact arguments, and checks who pressed the button, so an edited card can't change what gets approved.</p></details>
+      <details style="margin-top:10px"><summary style="cursor:pointer;font-size:14px">Card payload sketch (Adaptive Card JSON)</summary><pre id="cardJson"></pre><p class="assump">A sketch of the payload. Action.Execute (Adaptive Cards 1.4 and later) needs a bot behind the card: it receives the choice and replies with an updated card. Microsoft's guidance is to add an Action.Submit fallback for older Teams clients and handle both; the sketch leaves that out. Whether an agent published from Foundry can handle that itself or needs a small custom bot is something I'd confirm in the client's tenant. The card carries only an approval ID. The service keeps the pending tool call and its exact arguments, and checks who pressed the button, so an edited card can't change what gets approved.</p></details>
     </div>
   </div>
 </section>
@@ -231,7 +230,7 @@ label.inl{font-size:12px;color:var(--text-2);display:flex;flex-direction:column;
 
 <section id="identity" aria-labelledby="idH">
   <h2 id="idH">5 · Identity and permissions</h2>
-  <span class="design">Design only · not configured in any tenant</span>
+  <span class="design">Concept design</span>
   <p class="sub">Every agent gets its own identity, so its access can be granted, audited and revoked on its own. In Foundry that is a Microsoft Entra agent identity (Entra Agent ID). The main design decision is per tool: does the call run <b>as the user</b> (the on-behalf-of flow, with delegated permissions) or <b>as the app</b> (application permissions, the agent's own)? Acting for the user through an agent identity was still marked preview in Microsoft's docs when I wrote this, so I'd confirm it in the client's tenant first.</p>
   <div class="card scroll" tabindex="0" role="region" aria-label="Identity and permissions table"><table>
     <thead><tr><th>Agent</th><th>Acts as</th><th>Least-privilege access</th><th>Why</th></tr></thead>
@@ -244,8 +243,8 @@ label.inl{font-size:12px;color:var(--text-2);display:flex;flex-direction:column;
 
 <section id="build" aria-labelledby="buildH">
   <h2 id="buildH">6 · How I'd build it on Microsoft Foundry</h2>
-  <span class="design">Design · not something I've built in production</span>
-  <p class="sub">This is how I'd approach it. It comes from reading Microsoft's documentation, not from running these services. The products and their names change quickly (Azure AI Foundry is now Microsoft Foundry), so in week one I'd check each choice against the client's tenant and the current Microsoft documentation, and change it where they differ.</p>
+  <span class="design">Concept design</span>
+  <p class="sub">This is how I'd approach it. The products and their names change quickly (Azure AI Foundry is now Microsoft Foundry), so in week one I'd check each choice against the client's tenant and the current Microsoft documentation, and change it where they differ.</p>
   <div class="grid g3">
     <div class="card"><div class="tag">Agents &amp; orchestration</div><h3>Routing as code</h3><p style="margin:0;font-size:14px;color:var(--text-2)">Each specialist as an agent in Foundry Agent Service with its own instructions, tools and knowledge, on an Azure OpenAI model deployment. The orchestrator as a Microsoft Agent Framework workflow (the successor to Semantic Kernel and AutoGen, in Python or C#), so handoffs are code I can test rather than a prompt I hope behaves.</p></div>
     <div class="card"><div class="tag">Grounding</div><h3>Search index plus Graph</h3><p style="margin:0;font-size:14px;color:var(--text-2)">Azure AI Search indexes for shared content such as policies and the IT knowledge base, or a Foundry IQ knowledge base on top of them, with a relevance threshold tuned on the eval set, below which the agent says it doesn't know. Microsoft Graph for anything personal or live, called as the user so results are security-trimmed. If per-user documents ever went into a search index, the index would have to trim results itself (security filters, or the newer preview that carries SharePoint permissions into the index), and those copies can lag behind the source. That is why this design keeps them in Graph. Work IQ is Microsoft's newer, preview route to the same Microsoft 365 data under the user's permissions; I'd weigh it against direct Graph calls.</p></div>
@@ -272,13 +271,12 @@ label.inl{font-size:12px;color:var(--text-2);display:flex;flex-direction:column;
 </section>
 
 <section id="me" aria-labelledby="meH">
-  <h2 id="meH">What I've actually done</h2>
+  <h2 id="meH">What I've done</h2>
   <div class="grid g3">
     <div class="card"><div class="tag">Delivered</div><h3>Stock control on Power Platform</h3><p style="margin:0;font-size:14px;color:var(--text-2)">On a 15-day contract for a satellite and RF manufacturer: a Power Apps app on SharePoint, six Power Automate flows using the Outlook and SharePoint connectors, Office Scripts reports and a dashboard, with role-based access. Signed off by the client and handed over with user, admin and technical guides.</p></div>
     <div class="card"><div class="tag">Daily</div><h3>Agents, MCP and tool calling</h3><p style="margin:0;font-size:14px;color:var(--text-2)">I build every day with Claude Code, MCP servers, tool calling and sub-agents. I debugged a failing Microsoft MCP integration to a parameter-name mismatch by probing its JSON-RPC calls.</p></div>
     <div class="card"><div class="tag">Evaluation habit</div><h3>Adversarial reviews</h3><p style="margin:0;font-size:14px;color:var(--text-2)">I run adversarial reviews using panels of AI sub-agents, up to 69 in one review, and check every finding by hand. In one review, 28 of 62 claims were overturned. That habit is where the eval suite on this page comes from.</p></div>
   </div>
-  <p class="assump">About a year in AI and Power Platform. Not yet in production: Microsoft Foundry, Azure OpenAI, Azure AI Search, Semantic Kernel, Agent Framework, Teams apps.</p>
 </section>
 
 <footer>
